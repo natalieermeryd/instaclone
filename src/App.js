@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
 import Post from "./Post";
+import { db } from "./firebase";
 
 function App() {
   const [posts, setPosts] = useState([
@@ -42,6 +43,21 @@ function App() {
         "https://res.cloudinary.com/g5-assets-cld/image/upload/x_0,y_808,h_2665,w_5330,c_crop/q_auto,f_auto,fl_lossy,g_center,h_1000,w_2000/g5/g5-c-iqbdwwmq-oakland-management-multifamily-client/g5-cl-1jkj1ycnt2-the-residences-at-newcity/uploads/DS1527_4147_buj9li.jpg",
     },
   ]);
+
+  // useEffect => Runs a piece of code based on a specific condition
+  // example: run code when page refreshes
+
+  useEffect(
+    () => {
+      //this is where the code runs, only once it runs
+      db.collection("posts").onSnapshot((snapshot) => {
+        //onSnapshot => every single time a new post is added, this code fires off
+        setPosts(snapshot.docs.map((doc) => doc.data()));
+      });
+    },
+    [] /** Conditions goes into here [], it gonna run once when the app components loads but also every single time posts changes  */
+  );
+
   return (
     <div className="App">
       <div className="app__header">
@@ -52,7 +68,7 @@ function App() {
         ></img>
       </div>
 
-      <h1>InstaClone</h1>
+      <h1>instaClone</h1>
 
       {posts.map((post) => (
         <Post
