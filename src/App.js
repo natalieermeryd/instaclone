@@ -58,7 +58,7 @@ function App() {
         <Post
           username={post.username}
           caption={post.caption}
-          imgUrl={post.imageUrl}
+          imageUrl={post.imageUrl}
         />
       ))}
 
