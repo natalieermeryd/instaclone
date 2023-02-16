@@ -13,7 +13,6 @@ function Post({ username, caption, imageUrl }) {
         />
         <h3>{username}</h3>
       </div>
-      {/** header > avatar + username */}
 
       <img className="post__image" src={imageUrl} alt="" />
 
